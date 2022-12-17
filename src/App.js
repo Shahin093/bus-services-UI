@@ -1,5 +1,6 @@
 import './App.css';
 import AboutBusCountering from './components/AboutBusCountering/AboutBusCountering';
+import BusBookingSerivces from './components/BusBookingSerivces/BusBookingSerivces';
 import BusCollection from './components/BusCollection/BusCollection';
 import DownLoadServices from './components/DownloadServices/DownLoadServices';
 // import OriginalNavber from './components/OriginalNavber/OriginalNavber';
@@ -16,6 +17,7 @@ function App() {
       <AboutBusCountering></AboutBusCountering>
       <OurService></OurService>
       <DownLoadServices></DownLoadServices>
+      <BusBookingSerivces></BusBookingSerivces>
       {/* <Router>
         <Route></Route>
       </Router> */}
