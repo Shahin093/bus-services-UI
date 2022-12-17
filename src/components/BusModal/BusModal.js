@@ -323,7 +323,6 @@ const BusModal = ({ bookingBus }) => {
                                     </div>
 
 
-
                                 </form>
 
                             </div>
