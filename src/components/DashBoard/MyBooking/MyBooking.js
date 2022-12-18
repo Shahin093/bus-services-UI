@@ -133,11 +133,12 @@ const MyBooking = () => {
                             }</span></td>
 
                             {/* payment  */}
-                            {
-                                order?.dates === new Date().toISOString().slice(0, 10) &&
-                                <td><span disabled={order.status === 'cancel'} className='btn bg-primary w-4 h-10'>PAY</span></td>
-                            }
-
+                            {/* {
+                                order?.dates === new Date().toISOString().slice(0, 10) ?
+                                   
+                                    : <td><span>Unpaid</span></td>
+                            } */}
+                            <td><Link to={`/dashboard/payment/${order?._id}`} disabled={order.status === 'cancel'} className='btn bg-primary w-4 h-10'>PAY</Link></td>
                             {/* edit button  */}
                             {
                                 order?.dates === new Date().toISOString().slice(0, 10) &&
