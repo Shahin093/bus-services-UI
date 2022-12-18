@@ -8,6 +8,7 @@ const Testiminual = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
     };
+
     return (
         <div className=' mx-auto mt-12 my-12'>
 

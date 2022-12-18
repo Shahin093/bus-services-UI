@@ -151,11 +151,7 @@ const BusCollection = () => {
                                     <input className='btn mt-5' type="submit" value="Sign Up" />
                                 </div>
                             </div>
-
-
-
                         </form>
-
                     </div>
                 </div >
             </div >
