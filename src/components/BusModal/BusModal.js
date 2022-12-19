@@ -3,7 +3,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
+import SeatRev from '../SeatRev/SeatRev';
 const BusModal = ({ bookingBus }) => {
 
     // user auth 
@@ -279,7 +281,7 @@ const BusModal = ({ bookingBus }) => {
                                         </div>
 
                                         {/*seat*/}
-                                        <div className="form-control w-full max-w-xs">
+                                        {/* <div className="form-control w-full max-w-xs">
                                             <label className="label">
                                                 <span className="label-text">Seat</span>
                                             </label>
@@ -301,7 +303,12 @@ const BusModal = ({ bookingBus }) => {
                                                 }
                                                 {errors.seat?.type === 'required' && <span className="label-text-alt text-red-500">{errors.seat.message}</span>}
                                             </label>
+                                        </div> */}
+                                        <div>
+                                            {/* <SeatRev></SeatRev> */}
+                                            <Link to={'/seatRev'} >Seat Regervation</Link>
                                         </div>
+
 
                                         <input disabled=
                                             {
@@ -321,10 +328,7 @@ const BusModal = ({ bookingBus }) => {
                                             </label>
                                         </div>
                                     </div>
-
-
                                 </form>
-
                             </div>
                         </div >
                     </div >
