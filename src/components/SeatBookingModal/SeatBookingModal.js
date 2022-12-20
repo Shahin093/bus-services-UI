@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import './SeatBookingModal.css';
 
-const SeatBookingModal = ({ setOpenModal }) => {
+const SeatBookingModal = ({ setOpenModal, selected }) => {
+    console.log(selected);
     let select1 = JSON.parse(localStorage.getItem("tickets1"));
 
     // const selectedSeat = select1.map((val) => {

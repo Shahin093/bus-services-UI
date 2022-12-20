@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
+import SeatBookingModal from '../SeatBookingModal/SeatBookingModal';
 import SeatRev from '../SeatRev/SeatRev';
-const BusModal = ({ bookingBus }) => {
+const BusModal = ({ bookingBus, setBookingBus }) => {
+
+    // modal 
+    const [modalOpen, setModalOpen] = useState(false);
+
+
+
 
     // user auth 
     const [user] = useAuthState(auth);
@@ -76,20 +83,6 @@ const BusModal = ({ bookingBus }) => {
     // console.log(opsl)
     // )
 
-    // Removing the specified element by value from the array
-    // for (var i = 0; i < optionsSlot.length; i++) {
-    // if (optionsSlot[i].value === showTime.split(':', 1)[0]) {
-    //     var spliced = optionsSlot.splice(i, 1);
-    //     console.log("Removed element: " + spliced);
-    //     console.log("Remaining elements: " + optionsSlot);
-    // }
-    // if ("1" === "1") {
-    //     var spliced = optionsSlot.splice(i, 1);
-    //     console.log("Removed element: " + spliced);
-    //     console.log("Remaining elements: " + optionsSlot);
-    // }
-
-    // }
 
 
     const [selectedSlot, setSelectedSlot] = useState(optionsSlot[0].value);
@@ -98,22 +91,179 @@ const BusModal = ({ bookingBus }) => {
 
     const handleChangeSlot = event => {
         setSelectedSlot(event.target.value);
+        // window.location.reload();
 
     };
     // console.log(selectedSlot.split(':', 1)[0]);
     const [slotDataHandle, setSlotDataHandle] = useState([]);
 
-    fetch(`http://localhost:5000/api/v1/busCollection/slots?slot=${selectedSlot}&from=${selectedFrom}&to=${selectedTo}&bus_name=${bookingBus?.bus_name}&&dates=${dates}`)
-        .then(res => res.json())
-        .then(data => setSlotDataHandle(data?.data));
+
+    var btn = document.querySelectorAll(".btn");
+
+    let occ = JSON.parse(localStorage.getItem("booked")) || [];
+
+    let selected = JSON.parse(localStorage.getItem("tickets1")) || [];
+    let [co, setCo] = useState([]);
+    let demost = [];
+
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/api/v1/busCollection/slots?slot=${selectedSlot}&from=${selectedFrom}&to=${selectedTo}&bus_name=${bookingBus?.bus_name}&&dates=${dates}`)
+            .then(res => res.json())
+            .then(data =>
+                data?.data?.map(sl => {
+
+                    // setSlotDataHandle(demost.push(...sl?.booked))
+                    // demost.push(...sl?.booked);
+                    demost.push(...sl?.booked)
+                    setCo(demost);
+                    // console.log(demost);
+
+
+                    // demost = null;
+                    // console.log(demost);
+                })
+
+            );
+    })
+
+
+    // console.log(co);
+    // Object?.values(btn)?.map((value) => {
+    // if (co.includes(value.innerText)) {
+    //     // console.log("val" + value.innerText);
+    //     value.classList.add("occupied");
+    //     // console.log("hello");
+    // }
+    // if (selected.includes(value.innerText)) {
+    //     // console.log("val" + value.innerText);
+    //     value.classList.add("selected");
+    //     // console.log("hello");
+    // }
+    // }
+
+    // )
+    // cart tickets session 
+    let cart = JSON.parse(localStorage.getItem("tickets1")) || [];
+    const handle = (e) => {
+        var tickets = e.target.innerText;
+
+        if (
+            !e.target.classList.contains("selected") &&
+            !e.target.classList.contains("occupied")
+        ) {
+            cart.push(tickets);
+            // cart3.push(tickets);
+            // JSON.stringify(localStorage.setItem("Selected", cart3));
+            e.target.classList.add("selected");
+        } else {
+            if (e.target.classList.contains("occupied")) {
+                alert("Already booked,Please Select Another Seat");
+            } else {
+                e.target.classList.remove("selected");
+                // console.log(e.target.innerText);
+
+                // console.log(e.target.innerText);
+                cart.splice(cart.indexOf(e.target.innerText), 1);
+                // cart3.splice(cart3.indexOf(e.target.innerText), 1);
+                // JSON.stringify(localStorage.setItem("Selected", cart3));
+            }
+        }
+        localStorage.setItem("tickets1", JSON.stringify(cart));
+        // localStorage.setItem("tickets1", cart);
+        // console.log(cart);
+    };
+
+
+
+
+
+    // const [sl, setSl] = useState([]);
+    // console.log(sl);
+    // var btn = document.querySelectorAll(".btn");
+
+    // let occ = JSON.parse(localStorage.getItem("booked")) || [];
+
+    // let selected = JSON.parse(localStorage.getItem("tickets1")) || [];
+    // console.log(selected);
+    useEffect(() => {
+        // console.log("hello world");
+
+        // setSl(selected);
+        // console.log(selected);
+        // console.log(btn);
+        Object?.values(btn)?.map((value) => {
+            // value.classList.add("selected");
+            if (co.includes(value.innerText)) {
+                // console.log("val" + value.innerText);
+                value.classList.add("occupied");
+                // co = [];
+                // console.log("hello");
+            }
+            if (selected.includes(value.innerText)) {
+                // console.log("val" + value.innerText);
+                value.classList.add("selected");
+                // console.log("hello");
+            }
+
+            // if (demost.includes(value.innerText)) {
+            //     // console.log("val" + value.innerText);
+            //     value.classList.add("occupied");
+            //     // console.log("hello");
+            // }
+
+            // if (selected.includes(value.innerText)) {
+            //     // console.log("val" + value.innerText);
+            //     value.classList.add("selected");
+            //     // console.log("hello");
+            // }
+
+        });
+
+        document.getElementById("count").innerHTML = occ.length;
+        document.getElementById("total").innerHTML =
+            "Total Seats Avaliable:" + localStorage.getItem("Total");
+        var arr = localStorage.getItem("tickets1");
+        // console.log(arr);
+        //     var arr1=[]
+        //     arr1 = JSON.parse(localStorage.getItem("booked"));
+        //     if(localStorage.getItem("Selected"))
+        // arr.map((value) => {
+        //       if (value.id != arr1) {
+        //         arr.splice(arr.indexOf(value), 1);
+        //         console.log(arr);
+        //       JSON.parse(localStorage.setItem("Selected",arr))
+        //       }
+        //     });
+    });
+
+    const list = [
+        { seat1: "A1", seat2: "A2", seat3: "A3", seat4: "A4" },
+        { seat1: "5", seat2: "6", seat3: "7", seat4: "8" },
+        { seat1: "9", seat2: "10", seat3: "11", seat4: "12" },
+        { seat1: "13", seat2: "14", seat3: "15", seat4: "16" },
+        { seat1: "17", seat2: "18", seat3: "19", seat4: "20" },
+        { seat1: "21", seat2: "22", seat3: "23", seat4: "24" },
+        { seat1: "25", seat2: "26", seat3: "27", seat4: "28" },
+        { seat1: "29", seat2: "30", seat3: "31", seat4: "32" },
+        { seat1: "33", seat2: "34", seat3: "35", seat4: "36" },
+        { seat1: "37", seat2: "38", seat3: "39", seat4: "40" }
+    ];
+
+
 
     var st = 0;
-    const [co, setCo] = useState(0);
-    slotDataHandle?.map(sl =>
-        // seat = seat + sl.seat
-        setCo(st + sl.seat)
-    )
-    var seat = st + co;
+    // console.log(slotDataHandle);
+    // demost.map(d => console.log(d))
+    // slotDataHandle?.map(sl =>
+    //     setCo(sl)
+
+    //     // seat = seat + sl.seat
+    //     // setCo(st + sl.seat)
+    //     // setCo(...co, sl?.booked)
+
+    // )
+    var seat = st + 0
 
     const [seatCount, setSeatCount] = useState(0);
     const onChangeCaptureHandler = (e) => {
@@ -139,6 +289,7 @@ const BusModal = ({ bookingBus }) => {
         // console.log(dates);
         const amount = 400;
         const driver_staf = 2;
+        const booked = selected;
 
 
 
@@ -146,7 +297,7 @@ const BusModal = ({ bookingBus }) => {
 
 
         const databody = {
-            bus_name, district_from, district_to, customer_name, email, slot, seat, amount, status, dates, driver_staf
+            bus_name, district_from, district_to, customer_name, email, slot, seat, amount, status, dates, driver_staf, booked
         }
         // console.log(databody);
         fetch('http://localhost:5000/api/v1/busCollection', {
@@ -169,17 +320,66 @@ const BusModal = ({ bookingBus }) => {
 
 
 
+    var items = list.map((i) => {
+        return (
+            <div>
+                <div className="grid grid-cols-2 lg:grid-cols-5">
+
+                    <div className="container">
+                        <button
+                            className="btn"
+                            style={{ margin: 10 }}
+                            type="button"
+                            onClick={handle}
+                            class="btn btn-primary"
+                        >
+                            {i.seat1}
+                        </button>
+                        <button
+                            className="btn"
+                            style={{ margin: 10 }}
+                            type="button"
+                            onClick={handle}
+                            class="btn btn-primary"
+                        >
+                            {i.seat2}
+                        </button>
+                        <button
+                            className="btn"
+                            style={{ margin: 10 }}
+                            type="button"
+                            onClick={handle}
+                            class="btn btn-primary"
+                        >
+                            {i.seat3}
+                        </button>
+                        <button
+                            className="btn"
+                            style={{ margin: 10 }}
+                            type="button"
+                            onClick={handle}
+                            class="btn btn-primary"
+                        >
+                            {i.seat4}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    });
+
 
     return (
         <div>
+            {/* {modalOpen && <SeatBookingModal selected={selected} setOpenModal={setModalOpen} />} */}
             {/* <!-- Put this part before </body> tag-- > */}
             <input type="checkbox" id="my-modal-6" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box">
+                <div className="modal-box ">
                     <div className='flex  justify-center items-center'>
-                        <div className="card w-full bg-gray-200 shadow-xl">
+                        <div className=" card w-full bg-gray-200 shadow-xl">
                             <div className="card-body">
-                                <form onSubmit={handleSubmit(onSubmit)}>
+                                <form className='' onSubmit={handleSubmit(onSubmit)}>
 
                                     <h2 className='mx-auto text-blue-600 text-3xl font-bold'>Welcome to <span className='underline decoration-pink-500 decoration-[10px] text-yellow-500'>{bookingBus?.bus_name}</span> Bus</h2>
 
@@ -267,7 +467,7 @@ const BusModal = ({ bookingBus }) => {
                                                     <option className='bg-orange-500  font-bold' key={s} value={s}>{s}</option>)
                                             }
                                         </select> */}
-                                            <select value={selectedSlot} onChange={handleChangeSlot}>
+                                            <select className="input input-bordered w-full max-w-xs" value={selectedSlot} onChange={handleChangeSlot}>
                                                 {optionsSlot.map((option, index) => (
                                                     <option key={index} value={option.value}>
                                                         {option.text}
@@ -304,20 +504,35 @@ const BusModal = ({ bookingBus }) => {
                                                 {errors.seat?.type === 'required' && <span className="label-text-alt text-red-500">{errors.seat.message}</span>}
                                             </label>
                                         </div> */}
-                                        <div>
+                                        <div className='form-control w-full max-w-xs'>
                                             {/* <SeatRev></SeatRev> */}
-                                            <Link to={'/seatRev'} >Seat Regervation</Link>
+                                            <Link className="bg-primary p-5" to={'/seatRev'} >Seat Regervation</Link>
+                                            {/* <SeatRev></SeatRev> */}
+                                            {/* <button
+                                                id="button1"
+                                                className="button1"
+                                                onClick={() => {
+                                                    setModalOpenSeat(true)
+
+                                                }}
+                                            >
+                                                Book a Seat
+                                            </button> */}
+
                                         </div>
-
-
+                                        {/* seat booking modal  */}
+                                        {/* {modalOpenSeat && <SeatRev></SeatRev>
+                                        } */}
                                         <input disabled=
                                             {
                                                 parseInt(showTime.split(":", 1)[0]) >= parseInt(selectedSlot.split(':', 1)[0])
                                                 ||
                                                 seatCount > 50 - seat
                                             }
-                                            className='btn mt-5 bg-orange-500' type="submit" value="Booking Now" />
-                                        <div className='form-control w-full max-w-xs '>
+                                            className='p-5 bg-orange-500' type="submit" value="Booking Now"
+                                        />
+
+                                        <div className='form-control w-full max-w-xs'>
                                             <label className="label">
                                                 <span className="label-text">
                                                     {
@@ -328,11 +543,82 @@ const BusModal = ({ bookingBus }) => {
                                             </label>
                                         </div>
                                     </div>
+
                                 </form>
+
                             </div>
                         </div >
+
                     </div >
 
+                    {/* seat regervaiton  */}
+                    <div>
+                        <>
+
+                            < div class="Book-seat" >
+                                <p>
+                                    <div class="Showcase mt-52 lg:mt-96">
+                                        <ul>
+                                            <li>
+                                                <div
+                                                    class="grid-item selected1"
+                                                    style={{ height: "1px" }}
+                                                ></div>
+                                                <small>Available</small>
+                                            </li>
+                                            <li>
+                                                <div
+                                                    id="grid-item"
+                                                    class="grid-item selected "
+                                                    style={{ height: "1px" }}
+                                                ></div>
+                                                <small>Selected</small>
+                                            </li>
+                                            <li>
+                                                <div
+                                                    id="grid-item"
+                                                    class="grid-item occupied"
+                                                    style={{ height: "1px" }}
+                                                ></div>
+
+                                                <small>Occupied</small>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </p>
+                                <></>
+                                <div id="button1"></div>
+                            </div > {" "}
+                            < div className="grid1" > {items}</div >
+                            <div className="App">
+                                <button
+                                    id="button1"
+                                    // className="button1"
+
+                                    className='button1 p-5 bg-orange-500'
+                                    onClick={() => {
+                                        setModalOpen(true);
+                                    }}>Booking
+                                </button>
+
+                            </div>
+
+                            < div className="total" >
+                                <p>
+                                    Booked Seat: <span id="count">&nbsp; </span>
+                                </p>
+                                <span id="total" style={{ position: "relative", top: "5px" }}></span>
+                            </div >
+
+
+                            {/* <div className="Booked Seats">
+          <button onClick={handleChange}> Booked Items</button>
+        </div> */}
+                            {/* <Popup trigger={<button> Trigger</button>} position="right center">
+          <div>Popup content here !!</div>
+        </Popup> */}
+                        </>
+                    </div>
                     <div>
                         <p>
                             Avalable Seat :  <span className='text-blue-700 font-bold '>{50 - seat}</span>
@@ -341,9 +627,12 @@ const BusModal = ({ bookingBus }) => {
 
                     </div>
                     <div className="modal-action">
-                        <label htmlFor="my-modal-6" className="btn">Close</label>
+                        <label htmlFor="my-modal-6" className="bg-yellow-500">Close</label>
                     </div>
                 </div>
+                {/* <div className='w-52 h-52'>
+                    <SeatRev></SeatRev>
+                </div> */}
             </div>
 
         </div >
