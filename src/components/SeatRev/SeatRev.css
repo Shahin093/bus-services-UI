@@ -118,9 +118,9 @@
     /* color:black; */
     border-radius: 10px;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     /*   align-items: center; */
-    position: absolute;
+    /* position: absolute; */
     right: 40px;
     /* top: 400px; */
 }

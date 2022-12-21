@@ -192,33 +192,33 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
         // setSl(selected);
         // console.log(selected);
         // console.log(btn);
-        Object?.values(btn)?.map((value) => {
-            // value.classList.add("selected");
-            if (co.includes(value.innerText)) {
-                // console.log("val" + value.innerText);
-                value.classList.add("occupied");
-                // co = [];
-                // console.log("hello");
-            }
-            if (selected.includes(value.innerText)) {
-                // console.log("val" + value.innerText);
-                value.classList.add("selected");
-                // console.log("hello");
-            }
+        // Object?.values(btn)?.map((value) => {
+        //     // value.classList.add("selected");
+        //     if (co.includes(value.innerText)) {
+        //         // console.log("val" + value.innerText);
+        //         value.classList.add("occupied");
+        //         // co = [];
+        //         // console.log("hello");
+        //     }
+        //     if (selected.includes(value.innerText)) {
+        //         // console.log("val" + value.innerText);
+        //         value.classList.add("selected");
+        //         // console.log("hello");
+        //     }
 
-            // if (demost.includes(value.innerText)) {
-            //     // console.log("val" + value.innerText);
-            //     value.classList.add("occupied");
-            //     // console.log("hello");
-            // }
+        //     // if (demost.includes(value.innerText)) {
+        //     //     // console.log("val" + value.innerText);
+        //     //     value.classList.add("occupied");
+        //     //     // console.log("hello");
+        //     // }
 
-            // if (selected.includes(value.innerText)) {
-            //     // console.log("val" + value.innerText);
-            //     value.classList.add("selected");
-            //     // console.log("hello");
-            // }
+        //     // if (selected.includes(value.innerText)) {
+        //     //     // console.log("val" + value.innerText);
+        //     //     value.classList.add("selected");
+        //     //     // console.log("hello");
+        //     // }
 
-        });
+        // });
 
         document.getElementById("count").innerHTML = occ.length;
         document.getElementById("total").innerHTML =
@@ -313,7 +313,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                 alert(data.message)
             });
 
-
+        localStorage.removeItem("tickets1");
     }
 
     // console.log(slotDataHandle);
@@ -321,52 +321,57 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
 
 
     var items = list.map((i) => {
-        return (
-            <div>
-                <div className="grid grid-cols-2 lg:grid-cols-5">
+        // console.log(i);
+        // return (
+        //     <div>
+        //         <div className="grid grid-cols-2 lg:grid-cols-5">
 
-                    <div className="container">
-                        <button
-                            className="btn"
-                            style={{ margin: 10 }}
-                            type="button"
-                            onClick={handle}
-                            class="btn btn-primary"
-                        >
-                            {i.seat1}
-                        </button>
-                        <button
-                            className="btn"
-                            style={{ margin: 10 }}
-                            type="button"
-                            onClick={handle}
-                            class="btn btn-primary"
-                        >
-                            {i.seat2}
-                        </button>
-                        <button
-                            className="btn"
-                            style={{ margin: 10 }}
-                            type="button"
-                            onClick={handle}
-                            class="btn btn-primary"
-                        >
-                            {i.seat3}
-                        </button>
-                        <button
-                            className="btn"
-                            style={{ margin: 10 }}
-                            type="button"
-                            onClick={handle}
-                            class="btn btn-primary"
-                        >
-                            {i.seat4}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        );
+        //             <div className="container">
+        //                 <button
+        //                     className="btn"
+        //                     style={{ margin: 10 }}
+        //                     type="button"
+        //                     onClick={handle}
+        //                     class="btn btn-primary"
+        //                 >
+        //                     {i.seat1}
+        //                 </button>
+        //                 <button
+        //                     className="btn"
+        //                     style={{ margin: 10 }}
+        //                     type="button"
+        //                     onClick={handle}
+        //                     class="btn btn-primary"
+        //                 >
+        //                     {i.seat2}
+        //                 </button>
+        //                 <button
+        //                     className="btn"
+        //                     style={{ margin: 10 }}
+        //                     type="button"
+        //                     onClick={handle}
+        //                     class="btn btn-primary"
+        //                 >
+        //                     {i.seat3}
+        //                 </button>
+        //                 <button
+        //                     className="btn"
+        //                     style={{ margin: 10 }}
+        //                     type="button"
+        //                     onClick={handle}
+        //                     class="btn btn-primary"
+        //                 >
+        //                     {i.seat4}
+        //                 </button>
+        //             </div>
+        //         </div>
+        //     </div>
+        // );
     });
+
+
+    const bo = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'C1', 'C2', 'C3', 'C4'];
+    // const bt = ['A2', 'B3', 'C4', 'A4'];
 
 
     return (
@@ -504,20 +509,50 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                                                 {errors.seat?.type === 'required' && <span className="label-text-alt text-red-500">{errors.seat.message}</span>}
                                             </label>
                                         </div> */}
-                                        <div className='form-control w-full max-w-xs'>
-                                            {/* <SeatRev></SeatRev> */}
-                                            <Link className="bg-primary p-5" to={'/seatRev'} >Seat Regervation</Link>
-                                            {/* <SeatRev></SeatRev> */}
-                                            {/* <button
-                                                id="button1"
-                                                className="button1"
-                                                onClick={() => {
-                                                    setModalOpenSeat(true)
 
-                                                }}
-                                            >
-                                                Book a Seat
-                                            </button> */}
+                                        <div className='grid grid-cols-4 text-yellow-400 bg-black'>
+                                            {
+                                                bo?.map(b =>
+
+                                                    co.includes(b) ? <span>
+                                                        <img width={"40px"} src="https://image.similarpng.com/very-thumbnail/2020/09/Right-mark-icon-on-transparent-background-PNG.png" alt="" />
+                                                    </span> : <button className='btn' type="button"
+                                                        onClick={handle}>{b}</button>
+                                                )
+                                            }
+                                        </div>
+
+                                        <div className='form-control w-full max-w-xs lg:w-full'>
+                                            <p>
+                                                <div class="Showcase">
+                                                    <ul>
+                                                        <li>
+                                                            <div
+                                                                class="grid-item selected1"
+                                                                style={{ height: "1px" }}
+                                                            ></div>
+                                                            <small>Available</small>
+                                                        </li>
+                                                        <li>
+                                                            <div
+                                                                id="grid-item"
+                                                                class="grid-item selected "
+                                                                style={{ height: "1px" }}
+                                                            ></div>
+                                                            <small>Selected</small>
+                                                        </li>
+                                                        <li>
+                                                            <div
+                                                                id="grid-item"
+                                                                class="grid-item occupied"
+                                                                style={{ height: "1px" }}
+                                                            ></div>
+
+                                                            <small>Occupied</small>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </p>
 
                                         </div>
                                         {/* seat booking modal  */}
@@ -552,11 +587,24 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                     </div >
 
                     {/* seat regervaiton  */}
+
+                    {/* <div className='grid grid-cols-4 text-yellow-400 bg-black'>
+                        {
+                            bo?.map(b =>
+
+                                bt.includes(b) ? <button style={{ margin: 10 }}
+                                    className='btn btn-primary occupied'>{b}Booked</button> : <button className='btn' type="button"
+                                        onClick={handle}>{b}</button>
+                            )
+                        }
+                    </div> */}
+
+
                     <div>
                         <>
 
                             < div class="Book-seat" >
-                                <p>
+                                {/* <p>
                                     <div class="Showcase mt-52 lg:mt-96">
                                         <ul>
                                             <li>
@@ -585,7 +633,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                                             </li>
                                         </ul>
                                     </div>
-                                </p>
+                                </p> */}
                                 <></>
                                 <div id="button1"></div>
                             </div > {" "}
