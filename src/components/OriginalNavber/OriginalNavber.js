@@ -1,15 +1,24 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+// import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import auth from '../../firebase.init';
+// import auth from '../../firebase.init';
+import useToken from '../../hooks/useToken';
+import useUserAuth from '../../hooks/useUserAuth';
 // import { Link } from 'react-router-dom';
 import './originalNavber.css';
 const OriginalNavber = () => {
-    const [user] = useAuthState(auth);
+    // const [user] = useAuthState(auth);
+
+    // user auth locally
+    const [user] = useUserAuth();
+
     const logout = () => {
-        signOut(auth);
+        // signOut(auth);
+        localStorage.removeItem('authorization');
+        window.location.reload();
     }
+    const [tokens] = useToken();
 
     return (
         <div className="navbar bg-base-100">
@@ -74,8 +83,9 @@ const OriginalNavber = () => {
                         <li><a href="/">Contact US</a></li>
                         <li tabIndex={"0"}>
                             {
-                                user ?
-                                    <li onClick={logout} className='btn btn-ghost'>Sign OUt</li> :
+                                tokens ?
+                                    // <li onClick={logout} className='btn btn-ghost'>Sign OUt</li>
+                                    <Link onClick={logout}>Sign out</Link> :
 
                                     <Link to='/login'>Login</Link>
                             }
@@ -87,6 +97,7 @@ const OriginalNavber = () => {
 
                 {/* navbar end  */}
                 <div className="navbar-end">
+                    <h2>{user?.email}</h2>
                     <label tabIndex={"0"} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                             <img src="https://placeimg.com/80/80/people" alt='profile-pic' />

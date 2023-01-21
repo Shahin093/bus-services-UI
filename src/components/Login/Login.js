@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import useAdmin from '../../hooks/useAdmin';
 import useToken from '../../hooks/useToken';
 const Login = () => {
     let navigate = useNavigate();
@@ -16,29 +17,62 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-
+    const [token, setToken] = useState(" ");
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
+        const databody = {
+            email: data.email,
+            password: data.password
+        };
+        // console.log(data);
+        fetch('http://localhost:5000/api/v1/user/login', {
+            method: 'POST',
+            body: JSON.stringify(databody),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            // accessToken
+            .then(res => res.json())
+            .then(data => {
+                // useToken(data?.data?.token);
+                // console.log(data?.data?.user?.email)
+                // console.log(data?.data?.token);
+                // setToken(data?.data?.token);
+                localStorage.setItem('authorization', data?.data?.user?.email)
+            });
+
+        // console.log(token);
+
         // console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
-
+        window.location.reload();
     }
+
+
+
+
+
+
 
     let signInError;
 
-    // const [token] = useToken(user || gUser);
+    const [tokens] = useToken();
+    // const [admin] = useAdmin();
+    // console.log(admin);
     const us = user || gUser;
     useEffect(() => {
-        // if (token) {
-        //     navigate(from, { replace: true });
-        // }
+        if (tokens) {
+            navigate(from, { replace: true });
+            // console.log('you founded a token')
+        }
         if (us) {
             navigate(from, { replace: true });
         }
 
-    }, [us, from, navigate])
+    }, [tokens, us, from, navigate])
 
 
     if (gLoading || loading) {

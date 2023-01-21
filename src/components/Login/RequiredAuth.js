@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate, useLocation } from 'react-router-dom';
 import auth from '../../firebase.init';
+import useToken from '../../hooks/useToken';
 // import Loading from '../Shared/Loading';
 
 // const RequiredAuth = ({ children }) => {
@@ -17,12 +18,13 @@ import auth from '../../firebase.init';
 // };
 
 const RequiredAuth = ({ children }) => {
-    const [user, loading] = useAuthState(auth);
+    // const [user, loading] = useAuthState(auth);
+    const [token, adminLoading] = useToken();
     let location = useLocation();
-    if (loading) {
+    if (adminLoading) {
         return 'loading...'
     }
-    if (!user) {
+    if (!token) {
         return <Navigate to='/login' state={{ from: location }} replace></Navigate>
     }
     return children;

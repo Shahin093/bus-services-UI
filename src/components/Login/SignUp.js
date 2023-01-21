@@ -37,6 +37,30 @@ const SignUp = () => {
     }
 
     const onSubmit = async data => {
+
+        const bus_name = "ANA";
+        const email = data.email;
+        const firstName = data?.name;
+        const lastName = ' islam';
+        const password = data.password;
+        const confirmPassword = data.password;
+        const role = 'user';
+        const contactNumber = '01774623000';
+        const imageURL = 'immmg.png';
+        const databody = {
+            email, firstName, lastName, password, confirmPassword, role, contactNumber, imageURL
+        };
+
+        fetch('http://localhost:5000/api/v1/user/signup', {
+            method: 'POST',
+            body: JSON.stringify(databody),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
+
         // console.log(data);
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
