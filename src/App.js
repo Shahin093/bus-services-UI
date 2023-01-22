@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import BusHandalingTimes from './components/DashBoard/BusHandalingTImes/BusHandalingTimes';
+import ComfrimBooking from './components/DashBoard/ComfirmBooking/ComfrimBooking';
 import DashBoard from './components/DashBoard/DashBoard';
 import FeaturedInfo from './components/DashBoard/FeaturedInfo/FeaturedInfo';
 import MyBooking from './components/DashBoard/MyBooking/MyBooking';
@@ -42,6 +43,7 @@ function App() {
         }>
 
           <Route path='/dashboard/mybooking' element={<MyBooking></MyBooking>}></Route>
+          <Route path='/dashboard/comfirm' element={<ComfrimBooking></ComfrimBooking>}></Route>
           <Route path='/dashboard/slothandle' element={<BusHandalingTimes></BusHandalingTimes>}></Route>
           <Route path='/dashboard/featuresinfo' element={<FeaturedInfo></FeaturedInfo>}></Route>
           <Route path='/dashboard/payment/:id' element={<Payment></Payment>}></Route>

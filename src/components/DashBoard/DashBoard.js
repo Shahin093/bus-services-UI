@@ -28,7 +28,7 @@ const DashBoard = () => {
                     {
                         admin === 'admin' &&
                         <>
-
+                            <li><Link to='/dashboard/comfirm'> <HiOutlineChartPie />Comfirm Booking</Link></li>
                             <li><Link to='/dashboard/slothandle'> <AiFillHome /> Bus SLoting Handaling</Link></li>
                             <li><Link to='/dashboard/featuresinfo'> <FaUserAlt />FeatureInfo</Link></li>
 
@@ -41,6 +41,7 @@ const DashBoard = () => {
 
                     {/* <li><Link to='/dashboard/presenger'> <FaUserAlt />Presenger</Link></li> */}
                     <li><Link to='/dashboard/chart'> <HiOutlineChartPie />Chart</Link></li>
+
                     <li><Link to='/dashboard/review'>My Review</Link></li>
                     {/* {admin &&
                     <>

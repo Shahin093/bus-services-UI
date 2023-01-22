@@ -1,57 +1,40 @@
-import React from 'react';
-import './MyBooking.css'
-import { RiDeleteBin6Fill } from 'react-icons/ri';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import auth from '../../../firebase.init';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import doneIcon from '../../../assets/icons/done.svg';
 import CancelIcon from '../../../assets/icons/cancel.svg';
-// import Loading from '../../Shared/Loading';
 import { Link } from 'react-router-dom';
-// import EditBusCollection from '../EditBusCollection/EditBusCollection';
+import BusComfirmModal from '../BusComfirmModal/BusComfirmModal';
+const ComfrimBooking = () => {
+    // modal 
+    const [modalOpen, setModalOpen] = useState(true);
 
-
-const MyBooking = () => {
-    const [user, loading] = useAuthState(auth);
-
-
-
+    const [ids, setIds] = useState('');
+    // console.log(ids);
     const [orders, setOrders] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/api/v1/busCollection?email=${user?.email}`)
+        fetch(`http://localhost:5000/api/v1/busCollection/allbuscollection`)
             .then(res => res.json())
             .then(data => setOrders(data?.data))
-    }, [user]);
+    }, []);
 
-    // get id in useState
-    const [ids, setIds] = useState('');
-    // deleting state 
+
+
     // const [statusDelete, setStatusDelete] = useState([]);
     // Simple DELETE request with fetch
     // useEffect(() => {
-    //     fetch(`http://localhost:5000/api/v1/busCollection/${ids}`
-    //         , { method: 'DELETE' })
+    //     fetch(`http://localhost:5000/api/v1/busCollection/allbuscollection/${ids}`
+    //         , { method: 'UPDATE' })
     //         .then(res => res.json())
     //         .then(data => {
     //             if (!data) {
-    //                 return '<Loading></Loading>'
+    //                 return 'loading...'
     //             } else {
-    //                 return alert('Successfully deleted')
+    //                 return window.location.reload();
+    //                 // alert('Successfully deleted')
+
     //             }
     //         })
     // }, [ids])
-    if (loading) {
-        return 'loading...'
-    }
     return (
-        // <div className='chart'>
-        //     {
-        //         orders?.map(order => <Order key={order._id} order={order}></Order>)
-        //     }
-        // </div>
-
-
         <div className='dashboard-content-container'>
             <div className='dashboard-content-header'>
                 <h2>Orders List</h2>
@@ -69,8 +52,7 @@ const MyBooking = () => {
                     <th>SEAT</th>
                     <th>AMOUNT</th>
                     <th>TOTAL AMOUNT</th>
-                    <th>PAYMENT</th>
-                    <th>RE-ASSIGN</th>
+                    <th>Comfirmation</th>
                 </thead>
                 {
 
@@ -132,27 +114,44 @@ const MyBooking = () => {
                                 order.amount * order.seat
                             }</span></td>
 
+                            {
+                                order?.status === 'active' ?
+                                    // <button onClick={() => setIds(order?._id)} className='font-bold p-3 btn-secondary'>Confirm</button>
+                                    <div className='w-full mt-3 '>
+                                        {/* <!-- The button to open modal --> */}
+                                        <label htmlFor="my-modal-6" onClick={() => setIds(order?._id)} className="px-6 py-3 bg-orange-700 hover:bg-black text-white text-1xl font-bold rounded-full">Comfirm</label>
+
+                                    </div>
+                                    :
+                                    <>
+                                        {/* <img width={"40px"} src="https://image.similarpng.com/very-thumbnail/2020/09/Right-mark-icon-on-transparent-background-PNG.png" alt="" /> */}
+                                        <button disabled className='font-bold p-3 bg-black text-yellow-400'>{order.status}</button>
+
+                                    </>
+                            }
+
+
                             {/* payment  */}
                             {/* {
                                 order?.dates === new Date().toISOString().slice(0, 10) ?
                                    
                                     : <td><span>Unpaid</span></td>
                             } */}
-                            <td><Link to={`/dashboard/payment/${order?._id}`} disabled={order.status === 'cancel'} className='btn bg-primary w-4 h-10'>PAY</Link></td>
+                            {/* <td><Link to={`/dashboard/payment/${order?._id}`} disabled={order.status === 'cancel'} className='btn bg-primary w-4 h-10'>PAY</Link></td> */}
                             {/* edit button  */}
-                            {
+                            {/* {
                                 order?.dates === new Date().toISOString().slice(0, 10) &&
                                 // <td><span className="btn bg-green-600  w-4 h-10">Edit</span></td>
                                 <td><Link className='btn bg-green-600  w-4 h-10' to='/editBusCollection'>Edit
 
                                 </Link></td>
-                            }
+                            } */}
 
                             {/* delete button  */}
-                            {
+                            {/* {
                                 order?.dates === new Date().toISOString().slice(0, 10) &&
                                 <td><span onClick={() => setIds(order?._id)} className='text-4xl  w-4 h-1 bg-red-500 text-red-500' ><RiDeleteBin6Fill /></span></td>
-                            }
+                            } */}
 
 
                         </tr>
@@ -165,11 +164,10 @@ const MyBooking = () => {
             </table>
 
             {
-
+                modalOpen && <BusComfirmModal setModalOpen={setModalOpen} key={ids} id={ids}></BusComfirmModal>
             }
         </div>
-
     );
 };
 
-export default MyBooking;
+export default ComfrimBooking;

@@ -7,7 +7,11 @@ import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 
 
+// const stripePromise = loadStripe('pk_test_51L2XcOFWzcOdRAbZsuNZhvcbN6GZ7t1rox7AFNxmUbySY6mLsRUsjwqXK1YafHTJtKqMk4vwUdTYDfb0oQb0asjM00JlEmDWJs');
+
+
 const stripePromise = loadStripe('pk_test_51L2XcOFWzcOdRAbZsuNZhvcbN6GZ7t1rox7AFNxmUbySY6mLsRUsjwqXK1YafHTJtKqMk4vwUdTYDfb0oQb0asjM00JlEmDWJs');
+
 
 // import(useQuery)
 
@@ -15,7 +19,7 @@ const Payment = () => {
     const { id } = useParams();
 
     const url = `http://localhost:5000/api/v1/busCollection/${id}`;
-    console.log(id);
+    // console.log(url);
     // const { data: booking, isLoading } = useQuery(['busCollection', id], () => fetch(url, {
     //     method: 'GET',
     //     headers: {
@@ -30,12 +34,14 @@ const Payment = () => {
     // }
     // console.log(booking);
     const [booking, setBooking] = useState({});
+
     useEffect(() => {
-        fetch(url)
+        fetch(`http://localhost:5000/api/v1/busCollection/${id}`)
             .then(res => res.json())
             .then(data => setBooking(data?.data));
-    }, [])
-    // console.log(booking);
+    }, [id])
+
+    console.log(booking);
     return (
 
 

@@ -17,16 +17,17 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-    const [token, setToken] = useState(" ");
+    // const [token, setToken] = useState(" ");
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
+        const emailauth = data.email;
         const databody = {
             email: data.email,
             password: data.password
         };
-        // console.log(data);
+        // console.log(databody);
         fetch('http://localhost:5000/api/v1/user/login', {
             method: 'POST',
             body: JSON.stringify(databody),
@@ -37,17 +38,20 @@ const Login = () => {
             // accessToken
             .then(res => res.json())
             .then(data => {
+                // console.log(data)
                 // useToken(data?.data?.token);
                 // console.log(data?.data?.user?.email)
                 // console.log(data?.data?.token);
                 // setToken(data?.data?.token);
+                // console.log(data?.data?.user?.email);
+                // console.log(data?.data);
                 localStorage.setItem('authorization', data?.data?.user?.email)
             });
 
         // console.log(token);
 
         // console.log(data);
-        signInWithEmailAndPassword(data.email, data.password);
+        // signInWithEmailAndPassword(data.email, data.password);
         window.location.reload();
     }
 

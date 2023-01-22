@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 const CheckoutForm = ({ booking }) => {
     const { amount, bus_name, email } = booking;
 
-    console.log(booking);
+    // console.log(booking);
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
@@ -34,10 +34,12 @@ const CheckoutForm = ({ booking }) => {
     useEffect(() => {
         fetch('http://localhost:5000/api/v1/create-payment-intent', {
             method: 'POST',
-            body: JSON.stringify({ price: amount }),
+
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('authorization')}`
             },
+            body: JSON.stringify({ price: "345" })
         })
             .then(res => res.json())
             .then(data => {
@@ -47,7 +49,7 @@ const CheckoutForm = ({ booking }) => {
                     setClinetSecret(data.clientSecret);
                 }
             });
-    }, [])
+    }, [amount])
 
 
 
@@ -94,12 +96,12 @@ const CheckoutForm = ({ booking }) => {
             console.log(paymentIntent);
             setSuccess('Contreats ! Your Payment is Completed.');
 
-
+            alert('successfully payment...')
 
 
 
         }
-        alert('successfully payment...')
+
     }
 
 
