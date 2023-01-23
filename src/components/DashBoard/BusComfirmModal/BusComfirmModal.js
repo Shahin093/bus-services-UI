@@ -21,7 +21,7 @@ const BusComfirmModal = ({ id, setModalOpen }) => {
             .then((response) => response.json())
             .then((json) => {
                 if (json) {
-                    // window.location.reload();
+                    window.location.reload();
                 }
                 // setModalOpen(false)
             });
