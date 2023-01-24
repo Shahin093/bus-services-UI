@@ -19,9 +19,11 @@ const Login = () => {
 
     // const [token, setToken] = useState(" ");
 
+
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
+        data.preventDefault();
         const emailauth = data.email;
         const databody = {
             email: data.email,
@@ -77,7 +79,6 @@ const Login = () => {
         }
 
     }, [tokens, us, from, navigate])
-
 
     if (gLoading || loading) {
         return 'loading...'
