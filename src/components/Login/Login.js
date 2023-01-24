@@ -51,7 +51,7 @@ const Login = () => {
         // console.log(token);
 
         // console.log(data);
-        // signInWithEmailAndPassword(data.email, data.password);
+        signInWithEmailAndPassword(data.email, data.password);
         window.location.reload();
     }
 
