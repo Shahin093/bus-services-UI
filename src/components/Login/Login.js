@@ -23,7 +23,7 @@ const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
-        data.preventDefault();
+        // data.preventDefault();
         const emailauth = data.email;
         const databody = {
             email: data.email,
