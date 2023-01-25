@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import useAdmin from '../../hooks/useAdmin';
 import useToken from '../../hooks/useToken';
+import Loader from '../Loader/Loader';
+import { toast } from 'react-toastify';
 const Login = () => {
     let navigate = useNavigate();
     let location = useLocation();
@@ -40,21 +42,25 @@ const Login = () => {
             // accessToken
             .then(res => res.json())
             .then(data => {
-                // console.log(data)
+                console.log(data)
                 // useToken(data?.data?.token);
                 // console.log(data?.data?.user?.email)
                 // console.log(data?.data?.token);
                 // setToken(data?.data?.token);
                 // console.log(data?.data?.user?.email);
                 // console.log(data?.data);
-                localStorage.setItem('authorization', data?.data?.user?.email)
+                localStorage.setItem('authorization', data?.data?.user?.email);
+                toast.success(data?.message);
             });
 
         // console.log(token);
 
         // console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
-        window.location.reload();
+
+        // window.location.reload();
+
+        console.log(data)
     }
 
 
@@ -81,7 +87,7 @@ const Login = () => {
     }, [tokens, us, from, navigate])
 
     if (gLoading || loading) {
-        return 'loading...'
+        return <Loader></Loader>
     }
 
     if (gError || error) {

@@ -32,9 +32,13 @@ const OriginalNavber = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
                         <ul tabIndex={"0"} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            {/* <li><a href="/">Item 1</a></li>
                             <li><a href="/">Item 1</a></li>
-                            <li><a href="/">Item 1</a></li>
-                            <li><a href="/">Item 1</a></li>
+                            <li><a href="/">Item 1</a></li> */}
+                            <li><Link to={'/'}>Home</Link></li>
+                            <li><Link to={'/aboutSuttle'}>AboutUS</Link></li>
+                            <li><Link to={'/services'}>Services</Link></li>
+
                             <li tabIndex={"0"}>
                                 <a href="/" className="justify-between">
                                     Parent
@@ -45,7 +49,20 @@ const OriginalNavber = () => {
                                     <li><a href="/">Submenu 2</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/">Item 3</a></li>
+                            <li><a href="/dashboard">DashBoard</a></li>
+                            <li><a href="/">Contact US</a></li>
+                            <li tabIndex={"0"}>
+                                {
+                                    tokens ?
+                                        // <li onClick={logout} className='btn btn-ghost'>Sign OUt</li>
+                                        <Link onClick={logout}>Sign out</Link> :
+
+                                        <Link to='/login'>Login</Link>
+                                }
+                            </li>
+                            <li><a href="/">Our bus</a></li>
+                            <li><a href="/">Bus Details</a></li>
+
                         </ul>
                     </div>
                     <img className='navbarImg' src="https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/2022/06/logo-black-new.png" alt="" />
@@ -66,10 +83,21 @@ const OriginalNavber = () => {
                             <ul className="p-2 bg-white">
                                 <li><a href="/">Our bus</a></li>
                                 <li><a href="/">Bus Details</a></li>
+                                <li><a href="/dashboard">DashBoard</a></li>
+                                <li><a href="/">Contact US</a></li>
+                                <li tabIndex={"0"}>
+                                    {
+                                        tokens ?
+                                            // <li onClick={logout} className='btn btn-ghost'>Sign OUt</li>
+                                            <Link onClick={logout}>Sign out</Link> :
+
+                                            <Link to='/login'>Login</Link>
+                                    }
+                                </li>
                             </ul>
                         </li>
 
-                        <li tabIndex={"0"}>
+                        {/* <li tabIndex={"0"}>
                             <a href="/">
                                 Pages
                                 <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" strokeWidth={'20'} height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
@@ -78,7 +106,7 @@ const OriginalNavber = () => {
                                 <li><a href="/">Our bus</a></li>
                                 <li><a href="/">Bus Details</a></li>
                             </ul>
-                        </li>
+                        </li> */}
                         <li><a href="/dashboard">DashBoard</a></li>
                         <li><a href="/">Contact US</a></li>
                         <li tabIndex={"0"}>

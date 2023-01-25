@@ -12,6 +12,9 @@ import SignUp from './components/Login/SignUp';
 import NotFound from './components/NotFound/NotFound';
 import OriginalNavber from './components/OriginalNavber/OriginalNavber';
 import SeatRev from './components/SeatRev/SeatRev';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import useAdmin from './hooks/useAdmin';
 
 
@@ -56,7 +59,7 @@ function App() {
         <Route path='*' element={<NotFound></NotFound>}></Route>
 
       </Routes>
-
+      <ToastContainer />
     </div>
   );
 }
