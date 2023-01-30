@@ -123,7 +123,7 @@ const MyBooking = () => {
 
                             <td><span>{order.slot}</span></td>
 
-                            <td><span>{order.seat}</span></td>
+                            <td><span>,{order?.booked},</span></td>
 
                             <td><span>{order.amount}</span></td>
 

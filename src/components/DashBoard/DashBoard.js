@@ -4,11 +4,12 @@ import { FaUserAlt } from 'react-icons/fa';
 import { HiOutlineChartPie } from 'react-icons/hi';
 import { Link, Outlet } from 'react-router-dom';
 import useAdmin from '../../hooks/useAdmin';
+import Loader from '../Loader/Loader';
 
 const DashBoard = () => {
     const [admin, adminLoading] = useAdmin();
     if (adminLoading) {
-        return 'loading...'
+        return <Loader></Loader>
     }
     return (
         <div className="drawer drawer-mobile">
@@ -16,13 +17,13 @@ const DashBoard = () => {
 
             <div className="drawer-content">
                 {/* Page content here  */}
-                <h2 className='text-3xl font-bold text-purple-500 mx-auto'>Welcome to your Dashboard</h2>
+                <h2 className='items-center justify-center text-3xl font-bold text-purple-500 mx-auto'>Welcome to your Dashboard</h2>
                 <Outlet></Outlet>
 
             </div>
             <div className="drawer-side">
                 <label for="dashboard-sidebar" className="drawer-overlay"></label>
-                <ul className="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content">
+                <ul className="menu p-4 overflow-y-auto w-48 bg-yellow-200 text-base-content">
                     {/* Sidebar content here  */}
                     <li><Link to='/dashboard/mybooking'> <AiFillHome /> My Booking</Link></li>
                     {

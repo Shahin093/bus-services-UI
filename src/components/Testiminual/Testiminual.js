@@ -86,6 +86,9 @@ const Testiminual = () => {
                         </div>
                     </div>
 
+
+
+
                     <div className='bg-white slider-container p-10'>
 
 
@@ -98,9 +101,9 @@ const Testiminual = () => {
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            {/* <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" /> */}
+                            {/* <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" /> */}
                         </div>
 
                         <div className='flex items-center justify-around mt-5'>

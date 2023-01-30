@@ -42,7 +42,7 @@ const Login = () => {
             // accessToken
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 // useToken(data?.data?.token);
                 // console.log(data?.data?.user?.email)
                 // console.log(data?.data?.token);
@@ -60,7 +60,7 @@ const Login = () => {
 
         // window.location.reload();
 
-        console.log(data)
+        // console.log(data)
     }
 
 

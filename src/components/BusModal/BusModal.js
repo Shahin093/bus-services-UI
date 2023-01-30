@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import SeatBookingModal from '../SeatBookingModal/SeatBookingModal';
 import SeatRev from '../SeatRev/SeatRev';
@@ -62,16 +63,18 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
     // option slot 
     const optionsSlot = [
         { value: '00000', text: '--Choose an option--' },
-        { value: '1:00AM', text: '1:00AM' },
-        { value: '5:00AM', text: '5:00AM' },
-        { value: '6:00AM', text: '6:00AM' },
-        { value: '7:00AM', text: '7:00AM' },
-        { value: '8:00AM', text: '8:00AM' },
-        { value: '9:00AM', text: '9:00AM' },
-        { value: '10:00AM', text: '10:00AM' },
-        { value: '11:00AM', text: '11:00AM' },
-        { value: '12:00PM', text: '12:00PM' },
-        { value: '24:00PM', text: '5:00PM' },
+        { value: '13:00PM', text: '1:00PM' },
+        { value: '14:00PM', text: '2:00PM' },
+        { value: '15:00PM', text: '3:00PM' },
+        { value: '16:00PM', text: '4:00PM' },
+        { value: '17:00PM', text: '5:00PM' },
+        { value: '18:00PM', text: '6:00PM' },
+        { value: '19:00PM', text: '7:00PM' },
+        { value: '20:00PM', text: '8:00PM' },
+        { value: '21:00PM', text: '9:00PM' },
+        { value: '22:00PM', text: '10:00PM' },
+        { value: '23:00PM', text: '11:00PM' },
+        { value: '24:00PM', text: '12:00PM' }
     ];
 
     // optionsSlot.map(opsl =>
@@ -158,7 +161,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
             e.target.classList.add("selected");
         } else {
             if (e.target.classList.contains("occupied")) {
-                alert("Already booked,Please Select Another Seat");
+                toast.success("Already booked,Please Select Another Seat");
             } else {
                 e.target.classList.remove("selected");
                 // console.log(e.target.innerText);
@@ -172,6 +175,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
         localStorage.setItem("tickets1", JSON.stringify(cart));
         // localStorage.setItem("tickets1", cart);
         // console.log(cart);
+        // window.location.reload();
     };
 
 
@@ -291,7 +295,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
         const driver_staf = 2;
         const booked = selected;
 
-
+        // console.log(booked)
 
 
 
@@ -299,6 +303,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
         const databody = {
             bus_name, district_from, district_to, customer_name, email, slot, seat, amount, status, dates, driver_staf, booked
         }
+        console.log(cart)
         // console.log(databody);
         fetch('http://localhost:5000/api/v1/busCollection', {
             method: 'POST',
@@ -310,7 +315,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
-                alert(data.message)
+                toast.success(data.message)
             });
 
         localStorage.removeItem("tickets1");
@@ -516,10 +521,17 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
 
                                                     co.includes(b) ? <span>
                                                         <img width={"40px"} src="https://image.similarpng.com/very-thumbnail/2020/09/Right-mark-icon-on-transparent-background-PNG.png" alt="" />
-                                                    </span> : <button className='btn' type="button"
-                                                        onClick={handle}>{b}</button>
+                                                    </span> :
+                                                        <button className='btn' type="button"
+                                                            onClick={handle}>{b}</button>
                                                 )
                                             }
+                                            <label className="label">
+                                                {
+                                                    !cart &&
+                                                    <span>Please selete your seat regervation !</span>
+                                                }
+                                            </label>
                                         </div>
 
                                         <div className='form-control w-full max-w-xs lg:w-full'>
@@ -562,9 +574,9 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                                             {
                                                 parseInt(showTime.split(":", 1)[0]) >= parseInt(selectedSlot.split(':', 1)[0])
                                                 ||
-                                                seatCount > 50 - seat
+                                                seatCount > 50 - seat || localStorage.setItem("tickets1", JSON.stringify(cart))?.length === 0
                                             }
-                                            className='p-5 bg-orange-500' type="submit" value="Booking Now"
+                                            className='p-5 bg-blue-500' type="submit" value="Booking Now"
                                         />
 
                                         <div className='form-control w-full max-w-xs'>
@@ -669,7 +681,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                     </div>
                     <div>
                         <p>
-                            Avalable Seat :  <span className='text-blue-700 font-bold '>{50 - seat}</span>
+                            Avalable Seat :  <span className='text-blue-700 font-bold '>{50}</span>
                         </p>
 
 

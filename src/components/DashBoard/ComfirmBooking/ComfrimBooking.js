@@ -3,10 +3,13 @@ import doneIcon from '../../../assets/icons/done.svg';
 import CancelIcon from '../../../assets/icons/cancel.svg';
 import { Link } from 'react-router-dom';
 import BusComfirmModal from '../BusComfirmModal/BusComfirmModal';
+
+// http://localhost:5000/api/v1/register
+
 const ComfrimBooking = () => {
     // modal 
     const [modalOpen, setModalOpen] = useState(true);
-
+    const [email, setEmail] = useState('');
     const [ids, setIds] = useState('');
     // console.log(ids);
     const [orders, setOrders] = useState([]);
@@ -16,7 +19,7 @@ const ComfrimBooking = () => {
             .then(data => setOrders(data?.data))
     }, []);
 
-
+    // console.log(orders);
 
     // const [statusDelete, setStatusDelete] = useState([]);
     // Simple DELETE request with fetch
@@ -119,7 +122,7 @@ const ComfrimBooking = () => {
                                     // <button onClick={() => setIds(order?._id)} className='font-bold p-3 btn-secondary'>Confirm</button>
                                     <div className='w-full mt-3 '>
                                         {/* <!-- The button to open modal --> */}
-                                        <label htmlFor="my-modal-6" onClick={() => setIds(order?._id)} className="px-6 py-3 bg-orange-700 hover:bg-black text-white text-1xl font-bold rounded-full">Comfirm</label>
+                                        <label htmlFor="my-modal-6" onClick={() => setIds(order?._id)} onChange={() => setEmail(order?.email)} className="px-6 py-3 bg-orange-700 hover:bg-black text-white text-1xl font-bold rounded-full">Comfirm</label>
 
                                     </div>
                                     :
@@ -164,7 +167,7 @@ const ComfrimBooking = () => {
             </table>
 
             {
-                modalOpen && <BusComfirmModal setModalOpen={setModalOpen} key={ids} id={ids}></BusComfirmModal>
+                modalOpen && <BusComfirmModal setModalOpen={setModalOpen} email={email} key={ids} id={ids}></BusComfirmModal>
             }
         </div>
     );

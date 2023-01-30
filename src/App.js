@@ -15,6 +15,8 @@ import SeatRev from './components/SeatRev/SeatRev';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from './components/Footer/Footer';
+import ReviewPage from './components/DashBoard/ReviewPage/ReviewPage';
 // import useAdmin from './hooks/useAdmin';
 
 
@@ -40,6 +42,7 @@ function App() {
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
         <Route path='/seatRev' element={<SeatRev></SeatRev>}></Route>
+
         <Route path='/dashboard' element={
           <RequiredAuth>
             <DashBoard></DashBoard>
@@ -50,6 +53,7 @@ function App() {
           <Route path='/dashboard/comfirm' element={<ComfrimBooking></ComfrimBooking>}></Route>
           <Route path='/dashboard/slothandle' element={<BusHandalingTimes></BusHandalingTimes>}></Route>
           <Route path='/dashboard/featuresinfo' element={<FeaturedInfo></FeaturedInfo>}></Route>
+          <Route path='/dashboard/review' element={<ReviewPage></ReviewPage>}></Route>
           <Route path='/dashboard/payment/:id' element={<Payment></Payment>}></Route>
 
 
@@ -57,6 +61,7 @@ function App() {
         </Route>
 
         <Route path='*' element={<NotFound></NotFound>}></Route>
+
 
       </Routes>
       <ToastContainer />
