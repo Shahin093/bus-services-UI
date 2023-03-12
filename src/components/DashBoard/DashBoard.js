@@ -25,6 +25,7 @@ const DashBoard = () => {
                 <label for="dashboard-sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 overflow-y-auto w-48 bg-yellow-200 text-base-content">
                     {/* Sidebar content here  */}
+                    <li><Link to='/dashboard'> <AiFillHome /> My Profile</Link></li>
                     <li><Link to='/dashboard/mybooking'> <AiFillHome /> My Booking</Link></li>
                     {
                         admin === 'admin' &&
@@ -35,7 +36,7 @@ const DashBoard = () => {
 
                         </>
 
-                        // 
+
                     }
 
 

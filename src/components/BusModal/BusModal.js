@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import SeatBookingModal from '../SeatBookingModal/SeatBookingModal';
@@ -274,7 +274,11 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
         setSeatCount(e.target.value);
     };
 
+    const bo = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'C1', 'C2', 'C3', 'C4'];
+    // const bt = ['A2', 'B3', 'C4', 'A4'];
 
+
+    const [dataValid, setDataValid] = useState(false);
 
     // onsubmit 
     const onSubmit = async data => {
@@ -295,15 +299,16 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
         const driver_staf = 2;
         const booked = selected;
 
-        // console.log(booked)
+        console.log(booked)
 
 
 
 
         const databody = {
-            bus_name, district_from, district_to, customer_name, email, slot, seat, amount, status, dates, driver_staf, booked
+            bus_name, district_from, district_to, customer_name, email, slot, seat, booked, amount, status, dates, driver_staf
         }
-        console.log(cart)
+        // let dataValid = false
+        // console.log(cart)
         // console.log(databody);
         fetch('http://localhost:5000/api/v1/busCollection', {
             method: 'POST',
@@ -314,8 +319,16 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
-                toast.success(data.message)
+
+                toast.success(data.message);
+
+                setDataValid(data);
+                if (data) {
+                    // return < Navigate to="/dashboard/mybooking" replace={true} />
+                    setDataValid(data);
+                }
+
+                console.log(data);
             });
 
         localStorage.removeItem("tickets1");
@@ -375,9 +388,6 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
     });
 
 
-    const bo = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'C1', 'C2', 'C3', 'C4'];
-    // const bt = ['A2', 'B3', 'C4', 'A4'];
-
 
     return (
         <div>
@@ -389,7 +399,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                     <div className='flex  justify-center items-center'>
                         <div className=" card w-full bg-gray-200 shadow-xl">
                             <div className="card-body">
-                                <form className='' onSubmit={handleSubmit(onSubmit)}>
+                                <form action="/dashboard" onSubmit={handleSubmit(onSubmit)}>
 
                                     <h2 className='mx-auto text-blue-600 text-3xl font-bold'>Welcome to <span className='underline decoration-pink-500 decoration-[10px] text-yellow-500'>{bookingBus?.bus_name}</span> Bus</h2>
 
@@ -533,40 +543,20 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                                                 }
                                             </label>
                                         </div>
-
-                                        <div className='form-control w-full max-w-xs lg:w-full'>
-                                            <p>
-                                                <div class="Showcase">
-                                                    <ul>
-                                                        <li>
-                                                            <div
-                                                                class="grid-item selected1"
-                                                                style={{ height: "1px" }}
-                                                            ></div>
-                                                            <small>Available</small>
-                                                        </li>
-                                                        <li>
-                                                            <div
-                                                                id="grid-item"
-                                                                class="grid-item selected "
-                                                                style={{ height: "1px" }}
-                                                            ></div>
-                                                            <small>Selected</small>
-                                                        </li>
-                                                        <li>
-                                                            <div
-                                                                id="grid-item"
-                                                                class="grid-item occupied"
-                                                                style={{ height: "1px" }}
-                                                            ></div>
-
-                                                            <small>Occupied</small>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </p>
-
+                                        <div className='form-control w-full max-w-xs'>
+                                            <label className="label">
+                                                <span className="label-text mx-auto">
+                                                    {
+                                                        showTime.split(":", 1)[0] >= selectedSlot.split(':', 1)[0] ?
+                                                            <p className='label-text-alt text-red-500'>Time OUt This slot : {selectedSlot.split(':', 1)[0]}</p>
+                                                            :
+                                                            <div>  <h2 className='label-text-alt text-green-500'>Everything is Okay</h2>
+                                                                <img width={"80px"} src="https://image.similarpng.com/very-thumbnail/2020/09/Right-mark-icon-on-transparent-background-PNG.png" alt="" /></div>
+                                                    }
+                                                </span>
+                                            </label>
                                         </div>
+
                                         {/* seat booking modal  */}
                                         {/* {modalOpenSeat && <SeatRev></SeatRev>
                                         } */}
@@ -576,19 +566,12 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                                                 ||
                                                 seatCount > 50 - seat || localStorage.setItem("tickets1", JSON.stringify(cart))?.length === 0
                                             }
-                                            className='p-5 bg-blue-500' type="submit" value="Booking Now"
+                                            className='p-5 bg-yellow-500 submit-button' type="submit" value="Booking Now"
                                         />
+                                        {dataValid && (
+                                            <Navigate to="/dashboard/mybooking" replace={true} />
+                                        )}
 
-                                        <div className='form-control w-full max-w-xs'>
-                                            <label className="label">
-                                                <span className="label-text">
-                                                    {
-                                                        showTime.split(":", 1)[0] >= selectedSlot.split(':', 1)[0] &&
-                                                        <p className='label-text-alt text-red-500'>Time OUt This slot : {selectedSlot.split(':', 1)[0]}</p>
-                                                    }
-                                                </span>
-                                            </label>
-                                        </div>
                                     </div>
 
                                 </form>
@@ -610,7 +593,6 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                             )
                         }
                     </div> */}
-
 
                     <div>
                         <>
@@ -640,18 +622,20 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                                                     class="grid-item occupied"
                                                     style={{ height: "1px" }}
                                                 ></div>
-
                                                 <small>Occupied</small>
                                             </li>
                                         </ul>
                                     </div>
                                 </p> */}
                                 <></>
-                                <div id="button1"></div>
-                            </div > {" "}
+                                {/* <div id="button1"></div> */}
+                            </div >
+
+
+                            {" "}
                             < div className="grid1" > {items}</div >
                             <div className="App">
-                                <button
+                                {/* <button
                                     id="button1"
                                     // className="button1"
 
@@ -659,7 +643,7 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                                     onClick={() => {
                                         setModalOpen(true);
                                     }}>Booking
-                                </button>
+                                </button> */}
 
                             </div>
 
@@ -680,20 +664,21 @@ const BusModal = ({ bookingBus, setBookingBus }) => {
                         </>
                     </div>
                     <div>
-                        <p>
+                        {/* <p>
                             Avalable Seat :  <span className='text-blue-700 font-bold '>{50}</span>
-                        </p>
+                        </p> */}
 
 
                     </div>
+
                     <div className="modal-action">
                         <label htmlFor="my-modal-6" className="bg-yellow-500">Close</label>
                     </div>
-                </div>
+                </div >
                 {/* <div className='w-52 h-52'>
                     <SeatRev></SeatRev>
                 </div> */}
-            </div>
+            </div >
 
         </div >
     );

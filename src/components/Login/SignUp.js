@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import Loader from '../Loader/Loader';
 // import useToken from '../../hooks/useToken';
 const SignUp = () => {
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SignUp = () => {
 
     let signInError;
     if (gLoading || loading || updating) {
-        return 'loading...'
+        return <Loader></Loader>
     }
 
 

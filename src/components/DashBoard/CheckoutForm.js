@@ -1,10 +1,12 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import Loader from '../Loader/Loader';
 
 const CheckoutForm = ({ booking }) => {
-    const { amount, bus_name, email } = booking;
+    const { _id, amount, bus_name, email } = booking;
 
-    // console.log(booking);
+    // console.log(_id, email);
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
@@ -30,28 +32,32 @@ const CheckoutForm = ({ booking }) => {
 
 
     // }, [amount])
-
+    // console.log(stripe);
     useEffect(() => {
-        fetch('http://localhost:5000/api/v1/create-payment-intent', {
+        fetch('http://localhost:5000/create-payment-intent', {
             method: 'POST',
-
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': `Bearer ${localStorage.getItem('authorization')}`
+                // 'authorization': `Bearer ${localStorage.getItem('authorization')}`
             },
             body: JSON.stringify({ price: "345" })
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
-                console.log(data);
+
                 if (data?.clientSecret) {
-                    setClinetSecret(data.clientSecret);
+                    // console.log(data)
+                    setClinetSecret(data?.clientSecret);
                 }
+                // if (!data) {
+                //     return <Loader></Loader>
+                // }
             });
     }, [amount])
-
-
+    if (!clientSecret) {
+        return <Loader></Loader>
+    }
+    // console.log(clientSecret);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -88,20 +94,39 @@ const CheckoutForm = ({ booking }) => {
             },
 
         );
+        // if (!paymentIntent) {
+        //     return <Loader></Loader>
+        // }
         if (intentError) {
             setCardError(intentError?.message);
         } else {
+
             setCardError('');
-            setTransactionId(paymentIntent.id)
-            console.log(paymentIntent);
+            setTransactionId(paymentIntent?.id);
             setSuccess('Contreats ! Your Payment is Completed.');
 
-            alert('successfully payment...')
 
 
+            fetch(`http://localhost:5000/api/v1/busCollection/${_id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    pay: clientSecret,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((mailupdateData) => {
+                    toast.success(mailupdateData?.message)
+                    // console.log(mailupdateData);
 
+                    // if (!mailupdateData) {
+                    //     return <Loader></Loader>
+                    // }
+                    // toast.success('successfully payment...');
+                })
         }
-
     }
 
 
@@ -126,6 +151,7 @@ const CheckoutForm = ({ booking }) => {
                         },
                     }}
                 />
+
                 <button className='btn btn-success btn-xs' type="submit" >
                     Pay
                 </button>

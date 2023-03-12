@@ -8,7 +8,7 @@ const Testiminual = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
     };
-
+    // http://localhost:5000/api/v1/rating/review/
     return (
         <div className=' mx-auto mt-12 my-12'>
 

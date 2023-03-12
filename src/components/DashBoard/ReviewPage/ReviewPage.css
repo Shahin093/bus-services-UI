@@ -57,7 +57,7 @@
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
 }
 
 .form-control {
@@ -101,6 +101,7 @@
 .form-control::-moz-placeholder {
     color: brown;
     opacity: 1;
+
 }
 
 .form-control:-ms-input-placeholder {
@@ -108,10 +109,10 @@
     opacity: 1;
 }
 
-.form-control::placeholder {
+/* .form-control::placeholder {
     color: white;
     opacity: 1;
-}
+} */
 
 .form-control:disabled,
 .form-control[readonly] {
@@ -254,9 +255,9 @@ select.form-control:focus::-ms-value {
     border-top-left-radius: 0;
 }
 
-.form-control+.input-group-addon:not(:first-child) {
+/* .form-control+.input-group-addon:not(:first-child) {
     border-left: 0;
-}
+} */
 
 .btnn {
     display: inline-block;

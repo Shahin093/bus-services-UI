@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer/Footer';
 import ReviewPage from './components/DashBoard/ReviewPage/ReviewPage';
+import MyProfile from './components/DashBoard/MyProfile/MyProfile';
 // import useAdmin from './hooks/useAdmin';
 
 
@@ -49,8 +50,10 @@ function App() {
           </RequiredAuth>
         }>
 
+          <Route path='/dashboard' element={<MyProfile></MyProfile>}></Route>
           <Route path='/dashboard/mybooking' element={<MyBooking></MyBooking>}></Route>
           <Route path='/dashboard/comfirm' element={<ComfrimBooking></ComfrimBooking>}></Route>
+          {/* <Route path='/dashboard/chart' element={<ComfrimBooking></ComfrimBooking>}></Route> */}
           <Route path='/dashboard/slothandle' element={<BusHandalingTimes></BusHandalingTimes>}></Route>
           <Route path='/dashboard/featuresinfo' element={<FeaturedInfo></FeaturedInfo>}></Route>
           <Route path='/dashboard/review' element={<ReviewPage></ReviewPage>}></Route>

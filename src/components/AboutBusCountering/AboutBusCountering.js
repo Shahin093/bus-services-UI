@@ -4,9 +4,9 @@ const AboutBusCountering = () => {
     return (
         <div className="hero my-6">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <img src="https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/elementor/thumbs/the-girls-enter-the-doors-of-a-blue-bus-that-has-arrived-at-the-bus-stop--e1656575414346-pr2ezsmmrawcmkiwtv7o9n2a7ydrrpmhfdv79k8qho.jpg" className=" w-6/12 rounded-lg shadow-2xl" alt='aboutbus' />
+                <img src="https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/elementor/thumbs/the-girls-enter-the-doors-of-a-blue-bus-that-has-arrived-at-the-bus-stop--e1656575414346-pr2ezsmmrawcmkiwtv7o9n2a7ydrrpmhfdv79k8qho.jpg" className=" sm:w-6/12 rounded-lg" alt='aboutbus' />
 
-                <div className=' lg:w-6/12'>
+                <div className='gap-x-5 lg:w-6/12'>
 
                     <div data-aos="fade-left" className='demo-title'><h2>About Shuttle</h2></div>
 

@@ -10,7 +10,7 @@ import CheckoutForm from './CheckoutForm';
 // const stripePromise = loadStripe('pk_test_51L2XcOFWzcOdRAbZsuNZhvcbN6GZ7t1rox7AFNxmUbySY6mLsRUsjwqXK1YafHTJtKqMk4vwUdTYDfb0oQb0asjM00JlEmDWJs');
 
 
-const stripePromise = loadStripe('pk_test_51L2XcOFWzcOdRAbZsuNZhvcbN6GZ7t1rox7AFNxmUbySY6mLsRUsjwqXK1YafHTJtKqMk4vwUdTYDfb0oQb0asjM00JlEmDWJs');
+
 
 
 // import(useQuery)
@@ -18,7 +18,7 @@ const stripePromise = loadStripe('pk_test_51L2XcOFWzcOdRAbZsuNZhvcbN6GZ7t1rox7AF
 const Payment = () => {
     const { id } = useParams();
 
-    const url = `http://localhost:5000/api/v1/busCollection/${id}`;
+    // const url = `http://localhost:5000/api/v1/busCollection/${id}`;
     // console.log(url);
     // const { data: booking, isLoading } = useQuery(['busCollection', id], () => fetch(url, {
     //     method: 'GET',
@@ -41,7 +41,10 @@ const Payment = () => {
             .then(data => setBooking(data?.data));
     }, [id])
 
-    console.log(booking);
+
+    const stripePromise = loadStripe('pk_test_51L2XcOFWzcOdRAbZsuNZhvcbN6GZ7t1rox7AFNxmUbySY6mLsRUsjwqXK1YafHTJtKqMk4vwUdTYDfb0oQb0asjM00JlEmDWJs');
+
+    // console.log(booking);
     return (
 
 
