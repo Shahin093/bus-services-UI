@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Testiminual.css';
 import InfiniteCarousel from 'react-leaf-carousel';
+// import ReviewPage from '../ReviewPage/ReviewPage';
 
 const Testiminual = () => {
+
+    const [reviews, setReviews] = useState([]);
+    useEffect(() => {
+        fetch(`http://localhost:5000/api/v1/rating`)
+            .then(res => res.json())
+            .then(data => setReviews(data?.data))
+    }, []);
+    // console.log(reviews);
+
     const myStyle = {
         backgroundImage: `url(https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/2022/06/image-7ccqBRt94dA-unsplash.jpg)`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
     };
-    // http://localhost:5000/api/v1/rating/review/
+    //http://localhost:5000/api/v1/rating
     return (
         <div className=' mx-auto mt-12 my-12'>
 
@@ -52,9 +62,17 @@ const Testiminual = () => {
                     autoCycle={true}
                     animationDuration={500}
                     slidesSpacing={10}
-                    cycleInterval={2000}
+                    cycleInterval={5000}
                     pauseOnHover={true}
                 >
+
+                    {/* {
+                        reviews?.map(review => <ReviewPage key={review?._id} review={review}></ReviewPage>)
+                    } */}
+
+
+
+
                     <div className='bg-white slider-container p-10'>
                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis.
 
@@ -101,37 +119,6 @@ const Testiminual = () => {
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            {/* <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" /> */}
-                            {/* <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" /> */}
-                        </div>
-
-                        <div className='flex items-center justify-around mt-5'>
-                            <div className="avatar">
-                                <div className="w-20  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                    <img src="https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/2022/06/image-D2C59FF-150x150.jpg" alt='pic' />
-                                </div>
-
-                            </div>
-                            <div>
-                                <h2 className='font-bold'>Fred Rodriquez</h2>
-                                <p>Project manager</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='bg-white slider-container p-10'>
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis.
-
-                        <div className="rating rating-lg rating-half">
-                            <input type="radio" name="rating-10" className="rating-hidden" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" defaultChecked />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
                             <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
@@ -151,36 +138,6 @@ const Testiminual = () => {
                         </div>
                     </div>
 
-                    <div className='bg-white slider-container p-10'>
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis.
-
-                        <div className="rating rating-lg rating-half">
-                            <input type="radio" name="rating-10" className="rating-hidden" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" defaultChecked />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
-                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
-                        </div>
-
-                        <div className='flex items-center justify-around mt-5'>
-                            <div className="avatar">
-                                <div className="w-20  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                    <img src="https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/2022/06/image-D2C59FF-150x150.jpg" alt='pic' />
-                                </div>
-
-                            </div>
-                            <div>
-                                <h2 className='font-bold'>Fred Rodriquez</h2>
-                                <p>Project manager</p>
-                            </div>
-                        </div>
-                    </div>
 
                     <div className='bg-white slider-container p-10'>
                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis.
@@ -461,15 +418,77 @@ const Testiminual = () => {
                         </div>
                     </div>
 
+                    <div className='bg-white slider-container p-10'>
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis.
 
-                </InfiniteCarousel>
-            </div>
+                        <div className="rating rating-lg rating-half">
+                            <input type="radio" name="rating-10" className="rating-hidden" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" defaultChecked />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                        </div>
+
+                        <div className='flex items-center justify-around mt-5'>
+                            <div className="avatar">
+                                <div className="w-20  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <img src="https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/2022/06/image-D2C59FF-150x150.jpg" alt='pic' />
+                                </div>
+
+                            </div>
+                            <div>
+                                <h2 className='font-bold'>Fred Rodriquez</h2>
+                                <p>Project manager</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='bg-white slider-container p-10'>
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis.
+
+                        <div className="rating rating-lg rating-half">
+                            <input type="radio" name="rating-10" className="rating-hidden" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" defaultChecked />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-1" />
+                            <input type="radio" name="rating-10" className="bg-green-500 mask mask-star-2 mask-half-2" />
+                        </div>
+
+                        <div className='flex items-center justify-around mt-5'>
+                            <div className="avatar">
+                                <div className="w-20  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <img src="https://templatekit.jegtheme.com/shuttle/wp-content/uploads/sites/300/2022/06/image-D2C59FF-150x150.jpg" alt='pic' />
+                                </div>
+
+                            </div>
+                            <div>
+                                <h2 className='font-bold'>Fred Rodriquez</h2>
+                                <p>Project manager</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </InfiniteCarousel >
+            </div >
 
 
 
 
 
-        </div>
+        </div >
     );
 };
 

@@ -10,13 +10,14 @@ import CancelIcon from '../../../assets/icons/cancel.svg';
 // import Loading from '../../Shared/Loading';
 import { Link } from 'react-router-dom';
 import Loader from '../../Loader/Loader';
+import useUserAuth from '../../../hooks/useUserAuth';
 // import EditBusCollection from '../EditBusCollection/EditBusCollection';
 
 
 const MyBooking = () => {
-    const [user, loading] = useAuthState(auth);
+    // const [user, loading] = useAuthState(auth);
 
-
+    const [user] = useUserAuth()
 
     const [orders, setOrders] = useState([]);
     useEffect(() => {
@@ -44,9 +45,9 @@ const MyBooking = () => {
                 }
             })
     }, [ids])
-    if (loading) {
-        return <Loader></Loader>
-    }
+    // if (loading) {
+    //     return <Loader></Loader>
+    // }
     return (
         // <div className='chart'>
         //     {
