@@ -49,7 +49,10 @@ const OriginalNavber = () => {
                                     <li><a href="/">Submenu 2</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/dashboard">DashBoard</a></li>
+                            {
+                                tokens && <li><Link to="/dashboard">DashBoard</Link></li>
+                            }
+
                             <li><a href="/">Contact US</a></li>
                             <li tabIndex={"0"}>
                                 {
