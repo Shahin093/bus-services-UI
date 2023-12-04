@@ -20,7 +20,7 @@ export const getBusBookings = async (page) => {
 
   try {
     const response = await axios.get(
-      `https://bus-service-a999akkxn-shahin093.vercel.app/api/v1/bus-booking`
+      `https://bus-service-a999akkxn-shahin093.vercel.app/api/v1/user`
     );
     return response.data;
   } catch (error) {
