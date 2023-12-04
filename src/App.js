@@ -33,14 +33,7 @@ function App() {
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route path="/seatRev" element={<SeatRev></SeatRev>}></Route>
 
-        <Route
-          path="/dashboard"
-          element={
-            <RequiredAuth>
-              <DashBoard></DashBoard>
-            </RequiredAuth>
-          }
-        >
+        <Route path="/dashboard" element={<DashBoard></DashBoard>}>
           <Route path="/dashboard" element={<MyProfile></MyProfile>}></Route>
           <Route
             path="/dashboard/mybooking"

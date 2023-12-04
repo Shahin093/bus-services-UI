@@ -10,9 +10,14 @@ export const getLoggedInUser = async () => {
 };
 
 export const login = async (data) => {
-  const response = await axios.post("/api/auth/login", data).catch((error) => {
-    throw error.response.data;
-  });
+  const response = await axios
+    .post(
+      "https://bus-service-dwuo9v8f7-shahin093.vercel.app/api/auth/login",
+      data
+    )
+    .catch((error) => {
+      throw error.response.data;
+    });
 
   let userData = response.data.data;
   cookies.set("userPhoneNumber", userData.phoneNumber, { path: "/" });
@@ -32,9 +37,11 @@ export const logout = async () => {
 };
 
 export const signup = async (data) => {
-  const response = await axios.post("/api/signup", data).catch((error) => {
-    throw error.response.data;
-  });
+  const response = await axios
+    .post("https://bus-service-dwuo9v8f7-shahin093.vercel.app/api/signup", data)
+    .catch((error) => {
+      throw error.response.data;
+    });
   return response.data;
 };
 

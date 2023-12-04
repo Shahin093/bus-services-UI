@@ -1,5 +1,6 @@
+import { toast } from "react-toastify";
 import axios from "../utils/axiosInterceptor";
-
+// https://bus-service-dwuo9v8f7-shahin093.vercel.app
 export const createAppointment = async (data) => {
   const result = await axios
     .post("https://bus-service-a999akkxn-shahin093.vercel.app/api/v1/", data)
@@ -24,7 +25,7 @@ export const getBusBookings = async (page) => {
     );
     return response.data;
   } catch (error) {
-    // toast.error(error.response.data.message);
+    toast.error(error.response.data.message);
     throw error.response.data;
   }
 };
@@ -33,11 +34,11 @@ export const deleteAppointment = async (id) => {
   const result = await axios
     .delete(`http://localhost:4000/api/appointment/delete/${id}`)
     .then((response) => {
-      //   toast.success(response.data.message);
+      toast.success(response.data.message);
       return response.data;
     })
     .catch((error) => {
-      //   toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
       throw error.response.data;
     });
   return result;
@@ -48,11 +49,11 @@ export const updateAppointment = async (data) => {
   const result = await axios
     .put(`http://localhost:4000/api/appointment/update/${data?._id}`, data)
     .then((response) => {
-      // toast.success(response.data.message);
+      toast.success(response.data.message);
       return response.data;
     })
     .catch((error) => {
-      // toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
       throw error.response.data;
     });
   return result;
